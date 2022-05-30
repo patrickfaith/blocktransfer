@@ -1,0 +1,75 @@
+// copyright 1994 PLFaith 
+// crt_blks - creates standard pages ... mostly
+//           spirally or other such thingies.
+// General Notes:
+//   [blk] has a empty page in it
+//   the [blk] will have a bunch of blocks
+//   added to it depending on the f[1] value
+//
+//   The [trn] block has all the qualities that may
+//   modify the creation of a bunch of blocks.
+// 
+//   This is a cell and therefore has it's own accumulator so don't
+//   have to worry about messing your own accumulator
+//   but do have to configure the cell with @msg and
+//   @proc commands instead of a direct bot call.
+//
+// one way of accessing this cell is to have it create blocks
+// @msg c[pc] f[1] :stdcell\crt_blks
+// @msg c[pc] [blk] :stdcell\crt_blks
+// @proc c[pc] :stdcell\crt_blks drag
+// @break
+//
+// you can set up block creation - or atleast configure creation
+// @move block [pc] [trn] :edge
+// @msg c[pc] [trn] :stdcell\crt_blks
+// @proc c[pc] :stdcell\crt_blks drop
+// @break
+// 
+//  activator - initializes drag operator
+//
+@noop :activator
+//@load page [pc] [pg]
+@load block c[pc] [blk] :this create block
+@iter child i[blk]
+@break nonull i[blk]
+@load block c[pc] [trn] :this create chip block
+@iter add i[blk] [trn]
+@load block c[pc] [trn] :this create edge block
+@iter add i[blk] [trn]
+@break
+//
+//  drop - modify operator weights
+//
+@noop :drop
+@break null [trn]
+@load block c[pc] [blk] :this create block
+@bot c[pc] :stdbots\opset set operator weights 
+@break
+//
+// drag - create block is the operator
+//
+@noop :drag
+@move block [blk] [pg]
+@move string [pc] f[2] :1 
+@bot c[pc] :this loop it
+@break
+//
+@noop :loop it
+@math sub f[1] f[2]
+@bot :create block
+@break null f[1]
+@cycle
+//
+// operator methods - configured by activator
+//
+@noop :create chip block
+@create cface [rsl]
+@graph facet [rsl]
+@break
+//
+//
+@noop :create edge block
+@create cface [rsl]
+@graph edge [rsl]
+@break

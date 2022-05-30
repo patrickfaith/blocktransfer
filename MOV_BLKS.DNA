@@ -1,0 +1,173 @@
+// copyright 1994 PLFaith 
+// mov_blks - moves blocks around spatially ...
+//
+// General Notes:
+//   [blk] has a empty page in it
+//   the [blk] will have a bunch of blocks
+//   added to it depending on the f[1] value
+//
+//   The [trn] block has all the qualities that may
+//   modify the creation of a bunch of blocks.
+// 
+//   This is a cell and therefore has it's own accumulator so don't
+//   have to worry about messing your own accumulator
+//   but do have to configure the cell with @msg and
+//   @proc commands instead of a direct bot call.
+//
+// one way of accessing this cell is to have it create blocks
+// @msg c[pc] f[1] :stdcell\crt_blks
+// @msg c[pc] [blk] :stdcell\crt_blks
+// @proc c[pc] :stdcell\crt_blks drag
+// @break
+//
+// you can set up block creation - or atleast configure creation
+// @move block [pc] [trn] :edge
+// @msg c[pc] [trn] :stdcell\crt_blks
+// @proc c[pc] :stdcell\crt_blks drop
+// @break
+// 
+//  activator - initializes drag operator
+//
+@noop :activator
+@load block c[pc] [blk] :this move block
+@iter child i[blk]
+@break nonull i[blk]
+@load block c[pc] [trn] :this move trans
+@iter add i[blk] [trn]
+@load block c[pc] [trn] :this move rotate
+@iter add i[blk] [trn]
+@load block c[pc] [trn] :this move scale
+@iter add i[blk] [trn]
+//
+@load block c[pc] [blk] :this x op
+@move string [pc] f[0] :6
+@move energy f[0] [blk]
+@load block c[pc] [blk] :this y op
+@move string [pc] f[0] :6
+@move energy f[0] [blk]
+@load block c[pc] [blk] :this z op
+@move string [pc] f[0] :6
+@move energy f[0] [blk]
+@break
+//
+@noop :x op
+@noop :y op
+@noop :z op
+//
+//  drop - modify operator weights
+//
+@noop :drop
+@bot c[pc] :this dropping positions
+@bot c[pc] :this dropping operators
+@break
+//
+@noop :dropping positions
+@bot c[pc] :this x +
+@bot c[pc] :this x -
+@bot c[pc] :this y +
+@bot c[pc] :this y -
+@bot c[pc] :this z +
+@bot c[pc] :this z -
+@break
+//
+@noop :dropping operators
+@break null [trn]
+@load block c[pc] [blk] :this move block
+@bot c[pc] :stdbots\opset check operator weights 
+@break null f[8]
+@bot c[pc] :stdbots\opset set operator weights 
+@break
+//
+// drag - create block is the operator
+//
+@noop :drag
+@load page [trn] [trn]
+@load block c[pc] [blk] :this x op
+@move energy [blk] f[0]
+@load block c[pc] [blk] :this y op
+@move energy [blk] f[1]
+@load block c[pc] [blk] :this z op
+@move energy [blk] f[2]
+@bot :move block
+@break
+//
+// operator methods - configured by activator
+//
+@noop :move trans
+@move trans [trn]
+@break
+//
+//
+@noop :move rotate
+@move rotate [trn]
+@break
+//
+@noop :move scale
+@move scale [trn]
+@break
+//
+//
+@move block [pc] [blk] :x +
+@comp name [blk] [trn] f[8]
+@break null f[8]
+@load block c[pc] [blk] :this x op
+@move string [pc] f[0] :2
+@move energy [blk] f[1]
+@math add f[1] f[0]
+@move energy f[1] [blk]
+@break
+//
+@move block [pc] [blk] :x -
+@comp name [blk] [trn] f[8]
+@break null f[8]
+@load block c[pc] [blk] :this x op
+@move string [pc] f[0] :-2
+@move energy [blk] f[1]
+@math add f[1] f[0]
+@move energy f[1] [blk]
+@break
+// y
+@move block [pc] [blk] :y +
+@comp name [blk] [trn] f[8]
+@break null f[8]
+@load block c[pc] [blk] :this y op
+@move string [pc] f[0] :2
+@move energy [blk] f[1]
+@math add f[1] f[0]
+@move energy f[1] [blk]
+@break
+//
+@move block [pc] [blk] :y -
+@comp name [blk] [trn] f[8]
+@break null f[8]
+@load block c[pc] [blk] :this y op
+@move string [pc] f[0] :-2
+@move energy [blk] f[1]
+@math add f[1] f[0]
+@move energy f[1] [blk]
+@break
+// z
+@move block [pc] [blk] :z +
+@comp name [blk] [trn] f[8]
+@break null f[8]
+@load block c[pc] [blk] :this z op
+@move string [pc] f[0] :2
+@move energy [blk] f[1]
+@math add f[1] f[0]
+@move energy f[1] [blk]
+@break
+//
+@move block [pc] [blk] :z -
+@comp name [blk] [trn] f[8]
+@break null f[8]
+@load block c[pc] [blk] :this z op
+@move string [pc] f[0] :-2
+@move energy [blk] f[1]
+@math add f[1] f[0]
+@move energy f[1] [blk]
+@break
+
+
+
+
+

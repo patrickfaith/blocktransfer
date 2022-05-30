@@ -1,0 +1,219 @@
+Accumulator Block Registers
+
+(all these registers also have a iterator register associated to them)
+
+[sel] - User sellections are placed into this register.
+[blk] - Holds block to be blocked(catagorized).
+[trn] - Holds block to be transfered
+[rsl] - Holds block that is the result of a transfer (not used a lot now)
+[pc]  - Holds block that is currently being executed
+[stk] - Holds block that is a stack (not used much now)
+[exp] - Holds block that is building experience (i.e. short term memory)
+[bsl] - Holds block to be executed when selection occurs
+[bex]
+[drg] - Holds block to be executed when a "drag" operation occurs
+[drp] - Holds block to be executed when a "drag" operation occurs
+[buf] - (not used yet)
+[dsp] - (not used yet)
+[dbg] - (not used yet)
+[pg]  - Holds currently executing page that has primary focus
+
+
+Accumulator Fixed Point Registers
+
+f[0] through f[9]
+
+angles ara 0-255 for a complete circle.
+numbers are fixed point, one = 8192
+
+
+Kernal Level Registers - all cell accumulators share the same kernal
+level registers.  These registers usually have something to do with
+user input.
+
+k[dragView]  - drag window block 
+k[dropView]  - drop window block
+k[dragBlock] - block being dragged 
+k[dropBlock] - block being dropped
+k[selView]   -  window of selected block
+k[selBlock]  -  selected block
+k[schedule]  -  kernal scheduling block ( block to be continuously executed )
+k[l_but]     -  set when left button down on a block
+k[m_but]     -  set when middle button down on a block
+k[r_but]     -  set when right button down on a block
+
+
+
+DNA Sequence Types
+
+Register guide:
+
+  [register]    = Accumulator Block Registers
+  i[register]   = Accumulator Block Registers sub-connection pointer
+  f[register]   = Fixed Point Register
+  c[register]   = Uses search_string pointed at by block to get block
+  k[register]   = Kernal Level Registers
+  b[register]   = Buffer Register (usually a string)
+  ? = need to look up
+
+  the "|" means "or", for example :
+  
+  "f|[register]"  means either "f[register]" or "[register]"
+  
+DNA Operations
+   
+@noop
+	Usually start of a DNA sequence.  Does nuthing.
+
+@iter child [register]
+	Set iterator to child list
+	
+@iter parent [register]
+	Set iterator to parent list
+
+@iter input [register]
+	Set iterator to input list
+
+@iter output [register]
+	Set iterator to output list
+
+@iter next i[register]
+	Set iterator to next block in the list
+
+@iter prev i[register]
+	Set iterator to previous block in the list
+
+@iter del i[register]
+	Remove connection from iterator list
+
+@iter insert i[register] [register]
+
+@iter replace ?
+
+@iter high i[register] [register]
+	Put highest energy block in iterator list to register 
+@iter low i[register] [register]
+	Put highest energy block in iterator list to register
+@iter find ?
+@iter match ?
+@iter touch ?
+@iter addend i[register] [register]
+@iter add i[register] [register]
+	Add register to iterator list
+	  
+@load block c|[register] [register] :search_string
+	Load block from search string to register
+
+@load null c|f|b[register]
+	Places a null in the register. For the complex case
+	it nulls the complex pointer. For the buffer register
+	it deletes the buffer and makes it null.
+
+	  
+@load page ?
+@file load [register]
+	Load block from file
+@file save [register]
+	Saves block to file
+
+@move string c|[register] f|[register] :search_string
+	Move string to register
+	
+@move energy f|[register] f|[register]
+	Move energy from register to register
+	
+@move bratio f|[register] f|[register]
+	Move blocking ratio from register to register
+	
+@move tratio f|[register] f|[register]
+	Move transfer ratio from register to register
+
+@move weight f|i[register] f|[register]
+	Move connection weight from register connection to register connection
+
+
+@move position f|[register] f|[register]
+@move size     f|[register] f|[register]
+@move rotate   f|[register] f|[register]
+@move scale    f|[register] f|[register]
+@move block    k|i|[register] k|[register]
+@move place
+    
+@break null   f|i|[register]
+	Break out of DNA strand if register is NULL
+	
+@break nonull f|i|[register]
+	Break out of DNA strand if register is not NULL
+	
+@break low    f|i|[register]
+	Break out of DNA strand if register is less than or equal to 0
+
+@break high   f|i|[register]
+	Break out of DNA strand if register is greater than 0
+
+@break
+	Break out of DNA strand         
+
+@cycle
+	Jump to start of strand
+        
+@bot  i|c|[register] :search_string
+	Execute strand pointed at by register
+	
+@proc i|c|[register] [register] :search_string
+    Execute strand in accumulator at second register
+    
+@msg   c|[register1] i|f|c[register2] i|f|c[register3] :search_string
+    Send register2 to accumulator pointed at by register1
+    
+@comp name i|[register] i|[register] f[register]  
+
+@math add f|i|[register] f|i|[register] f|i|[register] 
+	Add fixed point numbers
+	
+@math sub f|i|[register] f|i|[register] f|i|[register]  
+    Subtract fixed point numbers
+    
+@graph construct i|[register]
+@graph map       i|[register]
+@graph pixel     i|[register]
+@graph display   i|[register]
+@graph edge      i|[register]
+@graph facet     i|[register] f[]
+
+
+@delete block    i|[register]
+	Delete block from memory
+	
+@create basic    i|[register]
+	create basic block (not used)
+	
+@create group       i|[register]
+	Create block that is to hold a grouping
+	
+@create chunk       i|[register]
+	Create block that is to hold a sequence
+	
+@create string       i|[register]
+	Create block that is to hold a string
+	
+@create read       i|[register]
+
+@create page       i|[register]
+	Create block that is a memory page (i.e. virtual memory page)
+	
+@create book       i|[register]
+@create cface       i|[register]
+	Create meta connection (i.e. baby brain neuron before type is specified)
+   	
+@create operate       i|[register]
+
+@create view       i|[register]      
+	Create Window block - block that is a Microsoft window
+	
+@create field       i|[register]      
+@create message       i|[register]
+	Create block that can hold a windows or operating system message
+	
+@create accum       i|[register]
+	Associate accumulator to the register

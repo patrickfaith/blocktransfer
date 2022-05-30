@@ -1,0 +1,3 @@
+@load block c[pc] [pg] :this
+@create accum [pg]
+@proc c[pc] :stdcell\mov_blks activator

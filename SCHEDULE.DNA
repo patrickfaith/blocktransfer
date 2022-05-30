@@ -1,0 +1,62 @@
+// copyright 1994 PLFaith 
+// executes when nuthing is happening.
+// General Notes:
+// called by
+// @proc c[pc] :stdcell\schedule drag
+// Currently hacked to continously spin the some view
+//
+@noop :activator
+@break
+//
+//  drop - schedule new things ... not
+//
+@noop :drop
+@break
+//
+// drag - create block is the operator
+//
+@noop :drag
+@move block k[dropView] [sel]
+@move string [pc] f[0] :0
+@move string [pc] f[1] :1
+@move string [pc] f[2] :0
+@bot c[pc] :stdbots\motate remote delta rotate selection
+//
+@load block c[pc] [buf] :spin_p1
+@msg [buf] [buf] [sel]
+@load block c[pc] [rsl] :stdbots\motate remote delta rotate page
+@msg [buf] [rsl] [bsl]
+@proc  [buf] [bsl]
+//
+@load block c[pc] [buf] :spin_p2
+@msg [buf] [buf] [sel]
+@load block c[pc] [rsl] :stdbots\motate remote delta rotate page
+@msg [buf] [rsl] [bsl]
+@proc  [buf] [bsl]
+//
+@load block c[pc] [buf] :spin_p3
+@msg [buf] [buf] [sel]
+@load block c[pc] [rsl] :stdbots\motate remote delta rotate page
+@msg [buf] [rsl] [bsl]
+@proc  [buf] [bsl]
+//
+//
+@load block c[pc] [buf] :spin_p4
+@msg [buf] [buf] [sel]
+@load block c[pc] [rsl] :stdbots\motate remote delta rotate page
+@msg [buf] [rsl] [bsl]
+@proc  [buf] [bsl]
+//
+//
+@load block c[pc] [buf] :spin_p5
+@msg [buf] [buf] [sel]
+@load block c[pc] [rsl] :stdbots\motate remote delta rotate page
+@msg [buf] [rsl] [bsl]
+@proc  [buf] [bsl]
+//
+//
+//
+@bot c[pc] :stdbots\motate rotate page left button
+@bot c[pc] :stdbots\motate rotate page right button
+//
+@break

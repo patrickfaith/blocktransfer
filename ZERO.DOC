@@ -1,0 +1,74 @@
+File BTM_MTRX.CPP:
+  sinFloat = sin ( theta * 2 * 3.14159 / 360.0 ) ;
+  cosFloat = cos ( theta * 2 * 3.14159 / 360.0 ) ;
+File BTG_DISP.CPP:
+    newPen = CreatePen(PS_SOLID,1,RGB(100,0,0));  // dark red
+    newPen = CreatePen(PS_SOLID,1,RGB(0,100,0)); // dark green
+    newPen = CreatePen(PS_SOLID,1,RGB(0,0,100)); // dark blue
+    if ( grfPtr->bookPix1[0] < 1000 )
+  BitBlt(graphWin->hDC,0,0,rect.right,rect.bottom, graphWin->memDC,0,0,SRCCOPY);
+File BTBLKS&M.CPP:
+    if ( btEnergy < 1.0e-15 ) btEnergy = 0.0 ;
+    btEnergy = .000000001;
+File BTBLOCKS.CPP:
+  btEnergy = 0.0 ;
+  btEnergy = 0.0 ;
+File BTBOOK.CPP:
+  btEnergy = 0.0; blockRatio = 0.0; transferRatio= 0.0;
+File BTBUFFER.CPP:
+    if ( graph->bookPix1[0] < 1000 )
+File BTBUTTON.CPP:
+  pix.closest = 10000;
+  pix.closestZ = -32000;
+  int diff = 10000;
+    if ( graph->bookPix1[0] < 1000 )
+  int diff = 10000;
+    if ( graph->bookPix1[0] < 1000 )
+File BTCFCFIX.CPP:
+    highBlockPtr->btEnergy = 0.0;
+File BTCFCGEN.CPP:
+     holdPtr->btEnergy = btEnergy * .0000001;
+    btEnergy = 0.0;
+File BTCOMBLK.CPP:
+      cFaceList->blockRatio = 30.0 ; // want 10 things in list
+      cFaceList->btEnergy = 0.0;
+    theBook->Focus()->FocusNetwork(100.0);
+    theBook->Focus()->DeFocusNetwork(100.0);
+    theBook->Focus()->RelaxNetwork(100.0);
+File BTDISPLA.CPP:
+    if      (btEnergy < .0001 )
+      newPen = CreatePen(PS_SOLID,1,RGB(100,0,0));  // dark red
+      newPen = CreatePen(PS_SOLID,1,RGB(0,100,0)); // dark green
+      newPen = CreatePen(PS_SOLID,1,RGB(0,0,100)); // dark blue
+    if      (btEnergy < .0001 )
+      newPen = CreatePen(PS_SOLID,1,RGB(255,0,0));  // light red
+      newPen = CreatePen(PS_SOLID,1,RGB(0,0,255)); // light blue
+    if ( grfPtr->bookPix1[0] < 1000 )
+    if ( grfPtr->bookPix1[0] < 1000 )
+  if (chunkGrfPtr->bookPix1[0] > 1000 ) return ;
+      if ( grfPtr->bookPix1[0] < 1000 )
+File BTDISPVW.CPP:
+    bestZ = -90000;
+                 ( blockPtr->graph->bookPix1[0] < 1000 ) )
+File BTRATIO.CPP:
+  BTval blockAve = 0.0,transAve = 0.0 ;
+File BTREST.CPP:
+  if ( melow > 0.0 )
+  if ( btEnergy < 1.0e-15 ) btEnergy = 0.0 ;
+    if ( transferRatio > 100.0 ) transferRatio = 100.0;
+  else if ( btEnergy > 1000000.0 )
+    if (blockRatio < .0001) blockRatio = .0001;
+    if (transferRatio < .0001) transferRatio = .0001;
+    btEnergy = 500000.0;
+  else if ( btEnergy < -1000000.0 )
+    btEnergy = -500000.0;
+File BTWNGRP.CPP:
+    if (chunkGrfPtr->bookPix1[0] > 1000 ) continue ;
+        if ( grfPtr->bookPix1[0] < 1000 )
+            newPen = CreatePen(PS_SOLID,1,RGB(0,0,0));
+  // Rectangle(hDC,0,0,rect.right,rect.bottom); 
+File BTWNMAIN.CPP:
+          pix.closest = 10000; pix.bestBlock = NULL; pix.closestZ = -32000;
+File BTA_PARS.CPP:
+    double iFloat = ((double) i) *360.0/255.0;
+    double iFloat = ((double) i) *360.0/255.0;
